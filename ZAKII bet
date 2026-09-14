@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ZAKII KE Sports</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin:0;
+            background:#f4f4f4;
+        }
+
+        header{
+            background:#0b7d2b;
+            color:white;
+            padding:15px;
+            text-align:center;
+            font-size:24px;
+            font-weight:bold;
+        }
+
+        .match{
+            background:white;
+            margin:10px;
+            padding:15px;
+            border-radius:10px;
+            box-shadow:0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .teams{
+            font-size:18px;
+            margin-bottom:10px;
+        }
+
+        .odds{
+            display:flex;
+            gap:10px;
+        }
+
+        button{
+            flex:1;
+            padding:10px;
+            border:none;
+            border-radius:8px;
+            background:#0b7d2b;
+            color:white;
+            font-size:16px;
+        }
+
+        .betslip{
+            background:white;
+            margin:10px;
+            padding:15px;
+            border-radius:10px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    ZAKII KE SPORTS
+</header>
+
+<div class="match">
+    <div class="teams">Arsenal vs Chelsea</div>
+    <div class="odds">
+        <button onclick="addBet('Arsenal',1.80)">1 - 1.80</button>
+        <button onclick="addBet('Draw',3.20)">X - 3.20</button>
+        <button onclick="addBet('Chelsea',2.50)">2 - 2.50</button>
+    </div>
+</div>
+
+<div class="match">
+    <div class="teams">Man United vs Liverpool</div>
+    <div class="odds">
+        <button onclick="addBet('Man United',2.10)">1 - 2.10</button>
+        <button onclick="addBet('Draw',3.00)">X - 3.00</button>
+        <button onclick="addBet('Liverpool',1.90)">2 - 1.90</button>
+    </div>
+</div>
+
+<div class="betslip">
+    <h3>Bet Slip</h3>
+
+    <div id="bets"></div>
+
+    <p>Total Odds: <span id="total">1.00</span></p>
+
+    <input type="number" id="stake" placeholder="Enter stake">
+
+    <p>Possible Win: Ksh <span id="win">0</span></p>
+</div>
+
+<script>
+let totalOdds = 1;
+
+function addBet(team, odd){
+    document.getElementById("bets").innerHTML +=
+        "<p>" + team + " @ " + odd + "</p>";
+
+    totalOdds *= odd;
+
+    document.getElementById("total").innerText =
+        totalOdds.toFixed(2);
+
+    calculate();
+}
+
+document.getElementById("stake").addEventListener(
+    "input",
+    calculate
+);
+
+function calculate(){
+    let stake =
+        document.getElementById("stake").value || 0;
+
+    let win = stake * totalOdds;
+
+    document.getElementById("win").innerText =
+        win.toFixed(2);
+}
+</script>
+
+</body>
+</html>
